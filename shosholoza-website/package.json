@@ -1,0 +1,23 @@
+{
+  "name": "shosholoza-website",
+  "version": "1.0.0",
+  "description": "Official website for Shosholoza",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "shosholoza",
+    "website",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "Shosholoza Team",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
