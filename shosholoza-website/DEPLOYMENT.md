@@ -1,98 +1,171 @@
-# Shosholoza Website - Deployment Guide
+# Deployment Guide — Shosholoza FC Website
 
-## Deployment Options
+## Quick Deploy to Vercel (Recommended)
 
-This static website can be deployed to various hosting platforms. Here are the most common options:
+Vercel is built by the Next.js team and provides the best deployment experience:
 
-### 1. GitHub Pages
-
-1. Create a GitHub repository for this project
-2. Push your code to the repository
-3. Go to repository Settings → Pages
-4. Select the branch to deploy from (usually `main`)
-5. Your site will be available at `https://yourusername.github.io/repository-name`
-
-### 2. Netlify
-
-1. Sign up at [netlify.com](https://www.netlify.com)
-2. Connect your GitHub repository (or drag and drop the `shosholoza-website` folder)
-3. Configure build settings:
-   - Build command: (leave empty)
-   - Publish directory: `.`
-4. Click "Deploy site"
-5. Your site will be live with a custom Netlify URL
-
-### 3. Vercel
-
-1. Sign up at [vercel.com](https://vercel.com)
-2. Import your GitHub repository
-3. Vercel will auto-detect the static site
-4. Click "Deploy"
-5. Your site will be live instantly
-
-### 4. Firebase Hosting
-
-1. Install Firebase CLI: `npm install -g firebase-tools`
-2. Login: `firebase login`
-3. Initialize Firebase in your project: `firebase init hosting`
-4. Configure:
-   - Public directory: `.`
-   - Single-page app: No
-   - Automatic builds: Optional
-5. Deploy: `firebase deploy`
-
-### 5. Custom Server
-
-Upload all files to your web server via FTP/SFTP or SSH:
+### Step 1: Push to GitHub
 
 ```bash
-# Example using rsync
-rsync -avz --exclude='.git' shosholoza-website/ user@yourserver.com:/var/www/html/
+# Initialize git if not done
+git init
+git add .
+git commit -m "Initial Shosholoza FC website"
+
+# Create GitHub repo and push
+git remote add origin https://github.com/your-org/shosholoza-fc-website.git
+git branch -M main
+git push -u origin main
 ```
 
-## Pre-Deployment Checklist
+### Step 2: Deploy on Vercel
 
-- [ ] Test all pages locally
-- [ ] Verify all links work correctly
-- [ ] Check responsive design on different screen sizes
-- [ ] Optimize images for web
-- [ ] Test contact form functionality
+1. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+2. Click "Add New" → "Project"
+3. Import your GitHub repository
+4. Vercel will auto-detect Next.js settings
+5. Click "Deploy"
+
+Your site will be live in ~2 minutes at `your-project.vercel.app`
+
+### Step 3: Configure Custom Domain
+
+1. In Vercel project settings, go to "Domains"
+2. Add `shosholozafc.org.za`
+3. Update DNS records at your domain registrar:
+   ```
+   Type: A
+   Name: @
+   Value: 76.76.19.19
+
+   Type: CNAME  
+   Name: www
+   Value: cname.vercel-dns.com
+   ```
+4. SSL certificate is automatic and free
+
+## Alternative: Static Export
+
+If you prefer traditional static hosting (Netlify, AWS S3, etc.):
+
+### Step 1: Configure Static Export
+
+Edit `next.config.ts`:
+
+```typescript
+const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true, // Required for static export
+  },
+};
+
+export default nextConfig;
+```
+
+### Step 2: Build
+
+```bash
+npm run build
+```
+
+Output will be in `/out` directory.
+
+### Step 3: Deploy
+
+Upload the `/out` directory to:
+- **Netlify:** Drag & drop or connect Git
+- **AWS S3:** Upload to bucket + CloudFront
+- **Firebase Hosting:** `firebase deploy`
+- **GitHub Pages:** Copy to gh-pages branch
+
+## Environment Variables
+
+### Contact Form Email (Optional)
+
+Create `.env.local`:
+
+```
+RESEND_API_KEY=re_xxxxxxxxxxxx
+```
+
+Add to Vercel:
+1. Project Settings → Environment Variables
+2. Add `RESEND_API_KEY`
+3. Redeploy
+
+### Analytics (Optional)
+
+For Google Analytics:
+
+```
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+Then add to `app/layout.tsx`.
+
+## Pre-Launch Checklist
+
+### Content
+- [ ] Replace all placeholder images
+- [ ] Add real club badge
+- [ ] Verify all copy is final
 - [ ] Update contact information
-- [ ] Set up analytics (optional)
-- [ ] Configure custom domain (if applicable)
+- [ ] Confirm staff names are current
 
-## Custom Domain Setup
+### Technical
+- [ ] Test on mobile devices
+- [ ] Run Lighthouse audit
+- [ ] Set up contact form email
+- [ ] Configure analytics
+- [ ] Test all forms
+- [ ] Check all links
 
-### DNS Configuration
+### Domain & SEO
+- [ ] Configure custom domain
+- [ ] Set up SSL certificate
+- [ ] Add meta descriptions
+- [ ] Create sitemap
+- [ ] Submit to Google Search Console
+- [ ] Set up 301 redirects (if replacing old site)
 
-Point your domain to your hosting provider:
+## Monitoring & Maintenance
 
-**For Netlify/Vercel:**
-- Add A record: `192.0.2.1` (check your provider's docs)
-- Add CNAME record: `www` → `your-site.netlify.app`
+### Vercel Dashboard
+- View deployment history
+- Check build logs
+- Monitor bandwidth usage
+- Review analytics
 
-**For GitHub Pages:**
-- Add A records to GitHub's IPs
-- Add CNAME record: `www` → `yourusername.github.io`
+### Regular Updates
+- Keep dependencies updated: `npm update`
+- Review and respond to contact form submissions
+- Update news section regularly
+- Monitor performance with Lighthouse
 
-## SSL Certificate
+## Troubleshooting
 
-Most modern hosting platforms (Netlify, Vercel, GitHub Pages) provide free SSL certificates automatically.
+### Build Fails
+```bash
+# Clear cache and rebuild
+rm -rf .next
+npm run build
+```
 
-## Continuous Deployment
+### Images Not Loading
+Ensure images are in `/public/` directory and referenced with `/images/filename.jpg`
 
-Set up automatic deployments by connecting your Git repository to your hosting platform. Every push to the main branch will trigger a new deployment.
-
-## Monitoring
-
-Consider setting up:
-- Google Analytics for visitor tracking
-- Uptime monitoring (UptimeRobot, Pingdom)
-- Error tracking (Sentry, LogRocket)
+### Contact Form Not Working
+1. Check API route at `/api/contact`
+2. Verify email service credentials
+3. Check browser console for errors
 
 ## Support
 
-For deployment issues, consult:
-- Your hosting provider's documentation
-- The Shosholoza technical team
-- Community forums for your chosen platform
+- **Next.js Docs:** [nextjs.org/docs](https://nextjs.org/docs)
+- **Vercel Support:** [vercel.com/support](https://vercel.com/support)
+- **Deployment Issues:** Check build logs in Vercel dashboard
+
+---
+
+**Last Updated:** September 2026
