@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Player Profile — Nordic Pro Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0e0e0e; --cream:#f4f1eb; --gold:#c8a84b; --blue:#1a3a5c; --mid:#5a5a5a; --light:#e8e4da; }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--cream); color:var(--ink); font-family:'Barlow',sans-serif; font-weight:300; overflow-x:hidden; }
+  
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:14px 56px; background:rgba(14,14,14,0.96); backdrop-filter:blur(16px); box-shadow:0 1px 0 rgba(255,255,255,0.04); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.2em; text-transform:uppercase; color:#fff; text-decoration:none; }
+  .nav-logo span { color:var(--gold); }
+  .nav-back { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6); text-decoration:none; transition:color 0.2s; }
+  .nav-back:hover { color:var(--gold); }
+  
+  .profile-header { padding:120px 56px 60px; background:var(--ink); position:relative; overflow:hidden; }
+  .profile-header-bg { position:absolute; inset:0; background:linear-gradient(135deg,#060f1a 0%,#0d2030 50%,#0a1e10 100%); }
+  .profile-header-content { position:relative; z-index:2; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:280px 1fr; gap:48px; align-items:start; }
+  
+  .profile-photo { position:relative; width:100%; padding-top:125%; background:linear-gradient(135deg,#1a3a5c 0%,#0d2618 100%); overflow:hidden; border:2px solid rgba(255,255,255,0.1); }
+  .profile-photo img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+  .profile-photo-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:72px; font-weight:300; color:rgba(255,255,255,0.15); }
+  
+  .profile-header-info { padding-top:20px; }
+  .eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+  .player-name-large { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(42px,5.5vw,72px); line-height:0.95; color:#fff; letter-spacing:-0.02em; margin-bottom:12px; }
+  .player-subtitle { font-family:'Barlow Condensed',sans-serif; font-size:14px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:32px; }
+  
+  .quick-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
+  .quick-stat { }
+  .quick-stat-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:6px; }
+  .quick-stat-value { font-size:18px; font-weight:400; color:#fff; }
+  
+  .profile-content { padding:80px 56px; background:var(--cream); }
+  .profile-container { max-width:1200px; margin:0 auto; }
+  
+  .section { margin-bottom:64px; }
+  .section-title { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(28px,3.5vw,42px); line-height:1.15; color:var(--ink); margin-bottom:8px; }
+  .section-title em { font-style:italic; color:var(--gold); }
+  .section-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:block; }
+  .divider { width:48px; height:1px; background:var(--gold); margin:16px 0 28px; }
+  
+  .info-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px 40px; background:#fff; padding:32px; border:1px solid rgba(14,14,14,0.08); }
+  .info-item { display:flex; flex-direction:column; }
+  .info-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:6px; }
+  .info-value { font-size:15px; font-weight:400; color:var(--ink); line-height:1.5; }
+  
+  .career-table { width:100%; background:#fff; border:1px solid rgba(14,14,14,0.08); border-collapse:collapse; }
+  .career-table thead { background:rgba(14,14,14,0.02); }
+  .career-table th { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); font-weight:500; text-align:left; padding:16px 20px; border-bottom:1px solid rgba(14,14,14,0.08); }
+  .career-table td { padding:16px 20px; font-size:15px; color:var(--ink); border-bottom:1px solid rgba(14,14,14,0.05); }
+  .career-table tbody tr:last-child td { border-bottom:none; }
+  
+  .stats-list { background:#fff; padding:32px; border:1px solid rgba(14,14,14,0.08); }
+  .stats-list li { font-size:15px; line-height:1.8; color:var(--ink); margin-bottom:12px; list-style:none; padding-left:24px; position:relative; }
+  .stats-list li::before { content:'·'; position:absolute; left:8px; color:var(--gold); font-size:20px; line-height:1.5; }
+  
+  .assessment-text { font-size:16px; line-height:1.85; color:var(--mid); margin-bottom:24px; background:#fff; padding:28px 32px; border-left:3px solid var(--gold); }
+  
+  .video-box { background:var(--ink); padding:48px; text-align:center; border:2px solid rgba(200,168,75,0.3); cursor:pointer; transition:all 0.3s; position:relative; overflow:hidden; }
+  .video-box:hover { border-color:var(--gold); transform:translateY(-4px); }
+  .video-box::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(200,168,75,0.1) 0%,transparent 100%); }
+  .video-icon { font-size:64px; color:var(--gold); margin-bottom:16px; position:relative; }
+  .video-label { font-family:'Barlow Condensed',sans-serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.6); position:relative; }
+  
+  .confidential-footer { background:rgba(200,168,75,0.08); border:1px solid rgba(200,168,75,0.2); padding:28px 32px; margin-top:60px; text-align:center; }
+  .confidential-footer p { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); line-height:1.8; }
+  
+  @media (max-width:968px) {
+    .profile-header-content { grid-template-columns:1fr; gap:32px; }
+    .profile-photo { max-width:280px; margin:0 auto; }
+    .quick-stats { grid-template-columns:repeat(2,1fr); }
+    .info-grid { grid-template-columns:1fr; }
+    .profile-header, .profile-content { padding-left:28px; padding-right:28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Nordic <span>Pro</span></a>
+  <a href="roster.html" class="nav-back">← Back to Roster</a>
+</nav>
+
+<div class="profile-header">
+  <div class="profile-header-bg"></div>
+  <div class="profile-header-content" id="profileHeader">
+    <!-- Content will be loaded via JavaScript -->
+  </div>
+</div>
+
+<div class="profile-content">
+  <div class="profile-container" id="profileContent">
+    <!-- Content will be loaded via JavaScript -->
+  </div>
+</div>
+
+<script>
+function getPlayerIdFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('id');
+}
+
+function getYouTubeEmbedUrl(url) {
+  const videoId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/)?.[1];
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+}
+
+async function loadPlayerProfile() {
+  const playerId = getPlayerIdFromUrl();
+  
+  if (!playerId) {
+    window.location.href = 'roster.html';
+    return;
+  }
+  
+  try {
+    const response = await fetch('players-data.json');
+    const data = await response.json();
+    const player = data.players.find(p => p.id === playerId);
+    
+    if (!player) {
+      window.location.href = 'roster.html';
+      return;
+    }
+    
+    document.title = `${player.displayName} — Nordic Pro Experience`;
+    
+    const initials = player.displayName.split(' ').map(n => n[0]).join('');
+    const embedUrl = getYouTubeEmbedUrl(player.videoUrl);
+    
+    // Header
+    document.getElementById('profileHeader').innerHTML = `
+      <div class="profile-photo">
+        <img src="${player.profileImage}" alt="${player.displayName}" onerror="this.style.display='none'">
+        <div class="profile-photo-placeholder">${initials}</div>
+      </div>
+      <div class="profile-header-info">
+        <span class="eyebrow">Nordic Pro Experience Programme · International Player Profile</span>
+        <h1 class="player-name-large">${player.displayName.toUpperCase()}</h1>
+        <div class="player-subtitle">${player.position} · ${player.nationality}</div>
+        <div class="quick-stats">
+          <div class="quick-stat">
+            <div class="quick-stat-label">Age</div>
+            <div class="quick-stat-value">${player.age}</div>
+          </div>
+          <div class="quick-stat">
+            <div class="quick-stat-label">Height</div>
+            <div class="quick-stat-value">${player.height.split(' (')[0]}</div>
+          </div>
+          <div class="quick-stat">
+            <div class="quick-stat-label">Weight</div>
+            <div class="quick-stat-value">${player.weight.split(' (')[0]}</div>
+          </div>
+          <div class="quick-stat">
+            <div class="quick-stat-label">Current Club</div>
+            <div class="quick-stat-value">${player.currentClub}</div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Content
+    let contentHTML = `
+      <!-- Player Profile Section -->
+      <div class="section">
+        <span class="section-label">Player Profile</span>
+        <h2 class="section-title">Personal <em>Information</em></h2>
+        <div class="divider"></div>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Full Name</span>
+            <span class="info-value">${player.fullName}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Date of Birth</span>
+            <span class="info-value">${player.dateOfBirth} (Age ${player.age})</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Nationality</span>
+            <span class="info-value">${player.nationality}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Place of Birth</span>
+            <span class="info-value">${player.placeOfBirth}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Raised</span>
+            <span class="info-value">${player.raised}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Heritage</span>
+            <span class="info-value">${player.heritage}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Position</span>
+            <span class="info-value">${player.position} (${player.positionDetail})</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Height</span>
+            <span class="info-value">${player.height}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Weight</span>
+            <span class="info-value">${player.weight}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Current Club</span>
+            <span class="info-value">${player.currentClub}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Current League</span>
+            <span class="info-value">${player.currentLeague}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Contract Status</span>
+            <span class="info-value">${player.contractStatus}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Draft</span>
+            <span class="info-value">${player.draft}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Education</span>
+            <span class="info-value">${player.education}</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Career History -->
+      <div class="section">
+        <span class="section-label">Career History</span>
+        <h2 class="section-title">Club <em>Experience</em></h2>
+        <div class="divider"></div>
+        <table class="career-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Club</th>
+              <th>League</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${player.careerHistory.map(career => `
+              <tr>
+                <td>${career.year}</td>
+                <td>${career.club}</td>
+                <td>${career.league}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- International Career -->
+      <div class="section">
+        <span class="section-label">International Career</span>
+        <h2 class="section-title">National <em>Team</em></h2>
+        <div class="divider"></div>
+        <div class="info-grid" style="grid-template-columns:1fr;">
+          <div class="info-item">
+            <span class="info-label">Level</span>
+            <span class="info-value">${player.internationalCareer.level}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Camp</span>
+            <span class="info-value">${player.internationalCareer.camp}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Senior Eligibility</span>
+            <span class="info-value">${player.internationalCareer.seniorEligibility}</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Career Statistics -->
+      <div class="section">
+        <span class="section-label">Career Statistics</span>
+        <h2 class="section-title">Performance <em>Highlights</em></h2>
+        <div class="divider"></div>
+        <ul class="stats-list">
+          ${player.careerStats.map(stat => `<li>${stat}</li>`).join('')}
+        </ul>
+      </div>
+      
+      <!-- Honours -->
+      <div class="section">
+        <span class="section-label">Honours & Recognition</span>
+        <h2 class="section-title">Career <em>Awards</em></h2>
+        <div class="divider"></div>
+        <div class="assessment-text">${player.honours}</div>
+      </div>
+      
+      <!-- Scouting Assessment -->
+      <div class="section">
+        <span class="section-label">Scouting Assessment</span>
+        <h2 class="section-title">Nordic Pro <em>Evaluation</em></h2>
+        <div class="divider"></div>
+        ${player.scoutingAssessment.map(para => `
+          <div class="assessment-text">${para}</div>
+        `).join('')}
+      </div>
+      
+      <!-- Video -->
+      <div class="section">
+        <span class="section-label">Highlight Video</span>
+        <h2 class="section-title">Performance <em>Footage</em></h2>
+        <div class="divider"></div>
+        <div class="video-box" onclick="openVideo('${embedUrl || player.videoUrl}')">
+          <div class="video-icon">▶</div>
+          <div class="video-label">Click to Watch Highlight Video</div>
+        </div>
+      </div>
+      
+      <div class="confidential-footer">
+        <p>Nordic Pro Experience Programme · Confidential Player Profile · Not For Distribution</p>
+      </div>
+    `;
+    
+    document.getElementById('profileContent').innerHTML = contentHTML;
+    
+  } catch (error) {
+    console.error('Error loading player profile:', error);
+    document.getElementById('profileContent').innerHTML = '<p style="text-align:center;color:var(--mid);">Error loading player profile.</p>';
+  }
+}
+
+function openVideo(url) {
+  window.open(url, '_blank');
+}
+
+document.addEventListener('DOMContentLoaded', loadPlayerProfile);
+</script>
+
+</body>
+</html>
