@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Player Roster — Nordic Pro Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0e0e0e; --cream:#f4f1eb; --gold:#c8a84b; --blue:#1a3a5c; --mid:#5a5a5a; --light:#e8e4da; }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--cream); color:var(--ink); font-family:'Barlow',sans-serif; font-weight:300; overflow-x:hidden; }
+  
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:14px 56px; background:rgba(14,14,14,0.96); backdrop-filter:blur(16px); box-shadow:0 1px 0 rgba(255,255,255,0.04); }
+  .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.2em; text-transform:uppercase; color:#fff; text-decoration:none; }
+  .nav-logo span { color:var(--gold); }
+  
+  .page-hero { padding:160px 56px 80px; background:var(--ink); position:relative; overflow:hidden; min-height:380px; display:flex; align-items:flex-end; }
+  .page-hero-bg { position:absolute; inset:0; background:linear-gradient(135deg,#060f1a 0%,#0d2030 50%,#0a1e10 100%); }
+  .page-hero-content { position:relative; z-index:2; max-width:1200px; margin:0 auto; width:100%; }
+  .eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:block; }
+  .page-title { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(52px,7.5vw,100px); line-height:0.93; color:#fff; letter-spacing:-0.02em; }
+  .page-title em { font-style:italic; color:var(--gold); }
+  .page-sub { margin-top:22px; font-size:15px; font-weight:300; color:rgba(255,255,255,0.5); max-width:500px; line-height:1.8; }
+  
+  .roster-section { padding:120px 56px; background:var(--cream); }
+  .roster-container { max-width:1400px; margin:0 auto; }
+  
+  .roster-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:32px; margin-top:60px; }
+  
+  .player-card { background:#fff; border:1px solid rgba(14,14,14,0.08); overflow:hidden; transition:all 0.3s; text-decoration:none; color:inherit; display:block; }
+  .player-card:hover { transform:translateY(-8px); box-shadow:0 20px 60px rgba(0,0,0,0.12); border-color:var(--gold); }
+  
+  .player-photo { position:relative; width:100%; padding-top:125%; background:linear-gradient(135deg,#1a3a5c 0%,#0d2618 100%); overflow:hidden; }
+  .player-photo img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+  .player-photo-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond',serif; font-size:64px; font-weight:300; color:rgba(255,255,255,0.15); }
+  
+  .player-info { padding:28px 24px; }
+  .player-name { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:400; color:var(--ink); line-height:1.2; margin-bottom:8px; }
+  .player-position { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+  
+  .player-stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding-top:16px; border-top:1px solid rgba(14,14,14,0.08); }
+  .player-stat { display:flex; flex-direction:column; }
+  .stat-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--mid); margin-bottom:4px; }
+  .stat-value { font-size:14px; font-weight:400; color:var(--ink); }
+  
+  .confidential-notice { background:rgba(200,168,75,0.1); border-left:3px solid var(--gold); padding:20px 24px; margin:40px auto 0; max-width:800px; }
+  .confidential-notice p { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mid); line-height:1.6; }
+  
+  @media (max-width:768px) {
+    .roster-grid { grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:24px; }
+    .page-hero { padding:120px 28px 60px; }
+    .roster-section { padding:80px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Nordic <span>Pro</span></a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content">
+    <span class="eyebrow">Confidential Access</span>
+    <h1 class="page-title">Player <em>Roster</em></h1>
+    <p class="page-sub">Current players in the Nordic Pro Experience Programme — credentialed prospects ready for European football.</p>
+  </div>
+</div>
+
+<section class="roster-section">
+  <div class="roster-container">
+    <div class="roster-grid" id="playerGrid">
+      <!-- Players will be loaded here via JavaScript -->
+    </div>
+    
+    <div class="confidential-notice">
+      <p>⚠️ Confidential — This roster is for authorized scouts, clubs, and partners only. Player profiles and information are not for public distribution.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+async function loadPlayers() {
+  try {
+    const response = await fetch('players-data.json');
+    const data = await response.json();
+    const grid = document.getElementById('playerGrid');
+    
+    data.players.forEach(player => {
+      const card = document.createElement('a');
+      card.href = `player-profile.html?id=${player.id}`;
+      card.className = 'player-card';
+      
+      const initials = player.displayName.split(' ').map(n => n[0]).join('');
+      
+      card.innerHTML = `
+        <div class="player-photo">
+          <img src="${player.thumbnail}" alt="${player.displayName}" onerror="this.style.display='none'">
+          <div class="player-photo-placeholder">${initials}</div>
+        </div>
+        <div class="player-info">
+          <h3 class="player-name">${player.displayName}</h3>
+          <div class="player-position">${player.position}</div>
+          <div class="player-stats">
+            <div class="player-stat">
+              <span class="stat-label">Age</span>
+              <span class="stat-value">${player.age}</span>
+            </div>
+            <div class="player-stat">
+              <span class="stat-label">Height</span>
+              <span class="stat-value">${player.height.split(' ')[0]}</span>
+            </div>
+            <div class="player-stat">
+              <span class="stat-label">Weight</span>
+              <span class="stat-value">${player.weight.split(' ')[0]}</span>
+            </div>
+            <div class="player-stat">
+              <span class="stat-label">Nationality</span>
+              <span class="stat-value">${player.nationality.split(' ')[0]}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      grid.appendChild(card);
+    });
+  } catch (error) {
+    console.error('Error loading players:', error);
+    document.getElementById('playerGrid').innerHTML = '<p style="text-align:center;color:var(--mid);">Error loading player data.</p>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadPlayers);
+</script>
+
+</body>
+</html>

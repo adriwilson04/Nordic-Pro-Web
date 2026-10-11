@@ -1,0 +1,84 @@
+{
+  "players": [
+    {
+      "id": "olu-oyegunle",
+      "fullName": "Oluwaseun (Olu) Oyegunle",
+      "displayName": "Olu Oyegunle",
+      "position": "Centre Back",
+      "positionDetail": "Left CB",
+      "nationality": "Canadian International",
+      "thumbnail": "players/olu-oyegunle-thumb.jpg",
+      "profileImage": "players/olu-oyegunle.jpg",
+      "dateOfBirth": "11 March 2002",
+      "age": 24,
+      "height": "191 cm (6'3\")",
+      "weight": "88 kg (195 lbs)",
+      "placeOfBirth": "Toronto, Ontario, Canada",
+      "raised": "Brampton, Ontario, Canada",
+      "heritage": "Nigerian descent",
+      "currentClub": "Chicago Fire FC II",
+      "currentLeague": "MLS NEXT Pro",
+      "contractStatus": "Signed through 2025; club option for 2026",
+      "draft": "2024 MLS SuperDraft — Round 2, Pick 33 (Chicago Fire FC)",
+      "education": "Syracuse University — Sport Management, Falk College (ACC)",
+      "careerHistory": [
+        {
+          "year": "2018",
+          "club": "Sigma FC",
+          "league": "League1 Ontario"
+        },
+        {
+          "year": "2019",
+          "club": "Sigma FC",
+          "league": "League1 Ontario"
+        },
+        {
+          "year": "2019",
+          "club": "Forge FC",
+          "league": "Canadian Premier League (CPL)"
+        },
+        {
+          "year": "2021–2023",
+          "club": "Syracuse Orange",
+          "league": "NCAA Division I (ACC)"
+        },
+        {
+          "year": "2022",
+          "club": "Sigma FC",
+          "league": "League1 Ontario"
+        },
+        {
+          "year": "2023",
+          "club": "Sigma FC",
+          "league": "League1 Ontario"
+        },
+        {
+          "year": "2025–",
+          "club": "Chicago Fire FC II",
+          "league": "MLS NEXT Pro"
+        }
+      ],
+      "internationalCareer": {
+        "level": "Canada U17",
+        "camp": "Preparation camp — 2019 FIFA U-17 World Cup",
+        "seniorEligibility": "Eligible — Canada (senior national team)"
+      },
+      "careerStats": [
+        "Sigma FC (League1 Ontario) 37 appearances across four seasons (2018, 2019, 2022, 2023) · 0 goals",
+        "Forge FC (CPL) 1 appearance · professional debut age 16 (12 October 2019)",
+        "Syracuse University (NCAA) 62 appearances · 2022 NCAA National Champion · 2 ACC Tournament titles",
+        "Chicago Fire FC II (MLS NP) 11 appearances · 1 goal (2025 season)",
+        "Draft 33rd overall, 2024 MLS SuperDraft (Chicago Fire FC)"
+      ],
+      "honours": "2022 NCAA National Champion; League1 Ontario Second Team All-Star and U20 All-Star (2022); All-ACC Academic Team (2023)",
+      "scoutingAssessment": [
+        "Olu Oyegunle is a physically imposing centre back (191 cm, 88 kg) whose career arc — professional debut at 16 with Forge FC in the Canadian Premier League, followed by an NCAA National Championship at Syracuse, and a subsequent MLS SuperDraft selection by Chicago Fire — marks him as one of the more credentialed defensive prospects currently available through the Canadian football pipeline.",
+        "Chicago Fire FC's sporting leadership specifically identified Oyegunle's physicality, composure on the ball and capability as a left centre back when drafting him 33rd overall in 2024. Sporting Director Gregg Broughton cited his 'tremendous upside,' while General Manager Alex Boler described 'intangible qualities that you can't really teach.' These are precisely the attributes that translate into consistent defensive performance at Superettan and Division 1 level in Sweden.",
+        "At 24, Oyegunle sits at the ideal entry point for a move into European football. Reserve-team environments in North America, while competitive, do not replicate the tactical density, pressing intensity and defensive organisation demanded by the Swedish pyramid. A Nordic Pro placement would provide that environment in a structured development context, with a clear competitive pathway.",
+        "His academic credentials reinforce the character profile. The All-ACC Academic Team selection in 2023 alongside 62 NCAA appearances signals a player with disciplined habits and strong adaptability — qualities that Swedish clubs consistently identify as essential when integrating an international player into an existing squad and community.",
+        "For Swedish clubs operating at Division 1 to Superettan level, Oyegunle represents an unusual proposition: a left-sided centre back with professional experience across two senior pyramid levels in North America, elite collegiate honours, and an age profile that means any Swedish club would not merely be using him but genuinely developing an asset capable of progressing with the team over multiple seasons."
+      ],
+      "videoUrl": "https://youtu.be/Hl3aGcAuB9k?si=1HLdWy3uNX4nnfeE"
+    }
+  ]
+}
